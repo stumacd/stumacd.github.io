@@ -1,0 +1,223 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Plant Monitor &#8211; Stu MacDonald</title>
+<meta name="description" content="It took me a little while to get a few bugs sorted out. But I now have a working plant monitor.The receiver sits by the computer. It's an arduino with a loosely wired shield. The RF receiver's data line goes into the Arduino's RX. The rest are either unused or for power.One change I will make to version 2 (if I ever get round to a version 2) is to make a small packet get sent rather than the ID and then the reading. I would also be interested in sending the temperature. I'm unsure if the temperature effects the conductivity of the soil, but I guess I'll work that out in the coming weeks. Maybe I'd have to adjust the threshold dependant on the temperature.Both .pde files needs the RFDriver.pde file from Morris's site (mentioned in the last post). It needs to be in the same directory and this only works with Arduino's IDE version 16 onwards.PlantRcvr.pdePlantTrans.pdeNote - don't program the tx with rx or vice versa. Rookie mistake.Now the transmitter is a little simpler.The idea is that one transmitter can do a windowsill full of plants. Luckily the ATmega328 has 6 A/D channels, so we don't have to do anything tricky to monitor 6 plants.You could pull the AVR out of the arduino (carefully!) and attach the power rails and hook all of the lines up as per the pins on the arduino if you want to save yourself an arduino board. I'll be doing that as soon as I get my hands on a 16MHz crystal. Even after changing the clk fuse I can't seem to get a un-clocked chip to work.I'm sure there's bugs in the code and it's hardly optimised at all. Let me know if you use it, like it, hate it, or find bugs. If you optimise or add functionality let me know, I'm interested to see what this could become.
+
+
+">
+<meta name="keywords" content="arduino, plant monitor, code">
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="Plant Monitor">
+<meta name="twitter:description" content="It took me a little while to get a few bugs sorted out. But I now have a working plant monitor.The receiver sits by the computer. It's an arduino with a loosely wired shield. The RF receiver's data line goes into the Arduino's RX. The rest are either unused or for power.One change I will make to version 2 (if I ever get round to a version 2) is to make a small packet get sent rather than the ID and then the reading. I would also be interested in sending the temperature. I'm unsure if the temperature effects the conductivity of the soil, but I guess I'll work that out in the coming weeks. Maybe I'd have to adjust the threshold dependant on the temperature.Both .pde files needs the RFDriver.pde file from Morris's site (mentioned in the last post). It needs to be in the same directory and this only works with Arduino's IDE version 16 onwards.PlantRcvr.pdePlantTrans.pdeNote - don't program the tx with rx or vice versa. Rookie mistake.Now the transmitter is a little simpler.The idea is that one transmitter can do a windowsill full of plants. Luckily the ATmega328 has 6 A/D channels, so we don't have to do anything tricky to monitor 6 plants.You could pull the AVR out of the arduino (carefully!) and attach the power rails and hook all of the lines up as per the pins on the arduino if you want to save yourself an arduino board. I'll be doing that as soon as I get my hands on a 16MHz crystal. Even after changing the clk fuse I can't seem to get a un-clocked chip to work.I'm sure there's bugs in the code and it's hardly optimised at all. Let me know if you use it, like it, hate it, or find bugs. If you optimise or add functionality let me know, I'm interested to see what this could become.
+
+
+">
+
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://stumacdonald.com/images/default-thumb.png">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Plant Monitor">
+<meta property="og:description" content="It took me a little while to get a few bugs sorted out. But I now have a working plant monitor.The receiver sits by the computer. It's an arduino with a loosely wired shield. The RF receiver's data line goes into the Arduino's RX. The rest are either unused or for power.One change I will make to version 2 (if I ever get round to a version 2) is to make a small packet get sent rather than the ID and then the reading. I would also be interested in sending the temperature. I'm unsure if the temperature effects the conductivity of the soil, but I guess I'll work that out in the coming weeks. Maybe I'd have to adjust the threshold dependant on the temperature.Both .pde files needs the RFDriver.pde file from Morris's site (mentioned in the last post). It needs to be in the same directory and this only works with Arduino's IDE version 16 onwards.PlantRcvr.pdePlantTrans.pdeNote - don't program the tx with rx or vice versa. Rookie mistake.Now the transmitter is a little simpler.The idea is that one transmitter can do a windowsill full of plants. Luckily the ATmega328 has 6 A/D channels, so we don't have to do anything tricky to monitor 6 plants.You could pull the AVR out of the arduino (carefully!) and attach the power rails and hook all of the lines up as per the pins on the arduino if you want to save yourself an arduino board. I'll be doing that as soon as I get my hands on a 16MHz crystal. Even after changing the clk fuse I can't seem to get a un-clocked chip to work.I'm sure there's bugs in the code and it's hardly optimised at all. Let me know if you use it, like it, hate it, or find bugs. If you optimise or add functionality let me know, I'm interested to see what this could become.
+
+
+">
+<meta property="og:url" content="http://stumacdonald.com/plant-monitor/">
+<meta property="og:site_name" content="Stu MacDonald">
+
+
+
+
+
+<link rel="canonical" href="http://stumacdonald.com/plant-monitor/">
+<link href="http://stumacdonald.com/feed.xml" type="application/atom+xml" rel="alternate" title="Stu MacDonald Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://stumacdonald.com/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+	<script src="http://stumacdonald.com/assets/js/vendor/html5shiv.min.js"></script>
+	<script src="http://stumacdonald.com/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Modernizr -->
+<script src="http://stumacdonald.com/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+
+<link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700%7CPT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="http://stumacdonald.com/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://stumacdonald.com/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://stumacdonald.com/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://stumacdonald.com/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://stumacdonald.com/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://stumacdonald.com/images/apple-touch-icon-144x144-precomposed.png">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36606010-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body class="post">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper">
+	<div class="site-name">
+		<a href="http://stumacdonald.com/">Stu MacDonald</a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" id="site-nav" class="nav">
+		    <ul>
+		        
+				    
+				        
+				    
+				    <li><a href="http://stumacdonald.com/posts/" >Blog</a></li>
+				
+				    
+				        
+				    
+				    <li><a href="http://stumacdonald.com/projects/" >Projects</a></li>
+				
+				    
+				        
+				    
+				    <li><a href="http://stumacdonald.com/resume.html" >CV</a></li>
+				
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+<div id="main" role="main">
+  <div class="article-author-side">
+    
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+
+	<img src="http://stumacdonald.com/images/bio-photo.jpg" class="bio-photo" alt="Stu MacDonald bio photo">
+
+
+  <h3 itemprop="name">Stu MacDonald</h3>
+  <p>Developer. Engineer. Hobbyist.</p>
+  <a href="mailto:stumacd@gmail.com" class="author-social" target="_blank"><i class="fa fa-fw fa-envelope-square"></i>Email</a>
+  
+  
+  
+  <a href="http://linkedin.com/in/stumacdonald82" class="author-social" target="_blank"><i class="fa fa-fw fa-linkedin-square"></i> LinkedIn</a>
+  
+  
+  <a href="http://github.com/stumacd" class="author-social" target="_blank"><i class="fa fa-fw fa-github"></i> Github</a>
+  <a href="http://stackoverflow.com/users/http://stackoverflow.com/users/255816/stu" class="author-social" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i> Stackoverflow</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+  </div>
+  <article class="post">
+    <div class="headline-wrap">
+      
+        <h1><a href="http://stumacdonald.com/plant-monitor/" rel="bookmark" title="Plant Monitor">Plant Monitor</a></h1>
+      
+    </div><!--/ .headline-wrap -->
+    <div class="article-wrap">
+      It took me a little while to get a few bugs sorted out. But I now have a working plant monitor.<br /><br /><a href="http://2.bp.blogspot.com/_5u5mnYQAPyg/Srorosh7S-I/AAAAAAAAAAM/c2xcZPzdoTQ/s1600-h/rx.JPG" onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}"><img alt="" border="0" id="BLOGGER_PHOTO_ID_5384664282623069154" src="http://2.bp.blogspot.com/_5u5mnYQAPyg/Srorosh7S-I/AAAAAAAAAAM/c2xcZPzdoTQ/s320/rx.JPG" style="cursor: pointer; float: left; height: 238px; margin: 0pt 10px 10px 0pt; width: 320px;" /></a>The receiver sits by the computer. It's an arduino with a loosely wired shield. The RF <a href="http://www.sparkfun.com/commerce/product_info.php?products_id=8949">receiver</a>'s data line goes into the Arduino's RX. The rest are either unused or for power.<br /><br />One change I will make to version 2 (if I ever get round to a version 2) is to make a small packet get sent rather than the ID and then the reading. I would also be interested in sending the temperature. I'm unsure if the temperature effects the conductivity of the soil, but I guess I'll work that out in the coming weeks. Maybe I'd have to adjust the threshold dependant on the temperature.<br />Both .pde files needs the RFDriver.pde file from Morris's site (mentioned in the last post). It needs to be in the same directory and this only works with Arduino's IDE version 16 onwards.<br /><a href="http://www.blogger.com/goog_1411858840"><br /></a><br /><a href="http://www.mediafire.com/?ccxm2h9q57d5cd1"><span style="font-weight: bold;">PlantRcvr.pde</span></a><br /><a href="http://www.mediafire.com/?ciickkyjbi2hao5">PlantTrans.pde</a><br /><br />Note - don't program the tx with rx or vice versa. Rookie mistake.<br /><br /><eeprom.h><a href="http://4.bp.blogspot.com/_5u5mnYQAPyg/SrpYcMnPV8I/AAAAAAAAAAc/Awl4LCJhTlY/s1600-h/tx.JPG" onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}"><img alt="" border="0" id="BLOGGER_PHOTO_ID_5384713545920239554" src="http://4.bp.blogspot.com/_5u5mnYQAPyg/SrpYcMnPV8I/AAAAAAAAAAc/Awl4LCJhTlY/s320/tx.JPG" style="cursor: pointer; display: block; height: 320px; margin: 0px auto 10px; text-align: center; width: 214px;" /></a><br />Now the <a href="http://www.sparkfun.com/commerce/product_info.php?products_id=8946">transmitter</a> is a little simpler.The idea is that one transmitter can do a windowsill full of plants. Luckily the ATmega328 has 6 A/D channels, so we don't have to do anything tricky to monitor 6 plants.<span style="font-weight: bold;"><br /><br /></span>You could pull the AVR out of the arduino (carefully!) and attach the power rails and hook all of the lines up as per the pins on the arduino if you want to save yourself an arduino board. I'll be doing that as soon as I get my hands on a 16MHz crystal. Even after changing the clk fuse I can't seem to get a un-clocked chip to work.<br /><br />I'm sure there's bugs in the code and it's hardly optimised at all. Let me know if you use it, like it, hate it, or find bugs. If you optimise or add functionality let me know, I'm interested to see what this could become.</eeprom.h>
+
+      <hr />
+      <footer role="contentinfo">
+        <div class="social-share">
+  <h4>Share on</h4>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=http://stumacdonald.com/plant-monitor/" class="twitter" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=http://stumacdonald.com/plant-monitor/" class="facebook" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=http://stumacdonald.com/plant-monitor/" class="google-plus" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+  </ul>
+</div><!-- /.social-share -->
+        <p class="byline"><strong>Plant Monitor</strong> was published on <time datetime="2009-09-23T07:04:00-07:00">September 23, 2009</time>.</p>
+      </footer>
+    </div><!-- /.article-wrap -->
+  
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrap">
+  <div class="related-articles">
+  <h4>You might also enjoy <small class="pull-right">(<a href="http://stumacdonald.com/posts/">View all posts</a>)</small></h4>
+    <ul>
+    
+      <li><a href="http://stumacdonald.com/creating-node-in-nokogiri-with-both/" title="Creating a node in Nokogiri with both an attribute and content">Creating a node in Nokogiri with both an attribute and content</a></li>
+    
+      <li><a href="http://stumacdonald.com/listing-all-available-classes-in-ruby/" title="Listing all available classes in ruby">Listing all available classes in ruby</a></li>
+    
+      <li><a href="http://stumacdonald.com/fix-unity-after-disabling-in-in-compiz/" title="Fix unity after disabling in in Compiz">Fix unity after disabling in in Compiz</a></li>
+    
+    </ul>
+    <hr />
+  </div><!-- /.related-articles -->
+  <footer>
+    
+
+<span>&copy; 2015 Stu MacDonald. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a> theme.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://stumacdonald.com/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://stumacdonald.com/assets/js/scripts.min.js"></script>
+
+	        
+
+</body>
+</html>

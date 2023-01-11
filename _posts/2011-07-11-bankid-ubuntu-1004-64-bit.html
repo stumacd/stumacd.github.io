@@ -1,0 +1,14 @@
+---
+layout: post
+title: BankID Ubuntu 10.04 64-bit
+date: '2011-07-11T13:24:00.000-07:00'
+tags:
+- bank id
+- 64 bit
+- ubuntu
+modified_time: '2011-07-12T12:14:44.022-07:00'
+blogger_id: tag:blogger.com,1999:blog-4711902727427506568.post-3630307706848804294
+blogger_orig_url: http://toastedtoothpaste.blogspot.com/2011/07/bankid-ubuntu-1004-64-bit.html
+---
+
+Ahhh the woes of a 64 bit machine bite again. I'm still Using Ubuntu 10.04 (I haven't seen anything worth upgrading for) so installing BankID isn't a problem as Swedbank's sucurity program has a Ubuntu distribution. But getting it to show up in Firefox is the step that they leave out of the instructions.<br /><br />The missing line is:<br /><br />$ nspluginwrapper -i /usr/local/lib/personal/libplugins.so<br /><br />ns plugin wrapper wraps your 32 bit plugin so that your 64 bit machine can use it. After restarting your browser, in your Tools -&gt; Addons -&gt; Plugins you should see a Nexus entry which is your bank ID.<br /><br />Now I don't need to switch back to windows for anything.

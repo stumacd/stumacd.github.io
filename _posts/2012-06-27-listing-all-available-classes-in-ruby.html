@@ -1,0 +1,11 @@
+---
+layout: post
+title: Listing all available classes in ruby
+date: '2012-06-27T01:10:00.000-07:00'
+tags: 
+modified_time: '2012-06-27T01:10:03.826-07:00'
+blogger_id: tag:blogger.com,1999:blog-4711902727427506568.post-9103892243187326562
+blogger_orig_url: http://toastedtoothpaste.blogspot.com/2012/06/listing-all-available-classes-in-ruby.html
+---
+
+I have to look further into the ObjectSpace module.<br /><br />But this command lists all the available classes.<br /><br />ObjectSpace.each_object(Class) {|c| p c} <br /><br />You could also save all the results to an array, require your new module, call it again and subtract one set from another just to get the new classes from the library (If you're lacking documentation).<div><br /></div><div><br /></div>

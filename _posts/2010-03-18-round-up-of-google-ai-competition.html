@@ -1,0 +1,15 @@
+---
+layout: post
+title: Round up of the Google AI Competition
+date: '2010-03-18T02:09:00.001-07:00'
+tags:
+- AI
+- code
+- tron
+- google
+modified_time: '2010-03-18T04:58:25.052-07:00'
+blogger_id: tag:blogger.com,1999:blog-4711902727427506568.post-1665177986675466745
+blogger_orig_url: http://toastedtoothpaste.blogspot.com/2010/03/round-up-of-google-ai-competition.html
+---
+
+Well the competition got a lot harder once the maps changed, the real top bots certainly rose to the top. Congratulations to the winners!<br /><br />My reflections on the competition:<br /><ul><li>Nicely run and nice that it adapted to the demands of the players</li><li>Great to have the ability to watch the matches afterwards.</li><li>Some very talented AI guys out there - with a fair bit of time on their hands.</li></ul><br />My bot:<br /><ul><li>Instead of doing a minimax on my move then the opponents move, it should have used the syncronous nature of movement to analyse the 9 (apart from the first move with all 4 directions available to both players) feasiable options.</li><li>I would have ideally trimmed the resultant decision tree in a logical manner, searching deep on both sideways options and that would often beat the opposition, by adventagously cutting the areas.</li><li>My initial implimentation of 'first to the most squares' was buggy, it would have been great to sort it out. so the bot didn't make such obvious bad moves.</li><li>Using a more optimized 'first to most squares' algorithm. I should have made a list of the coordinates to go over in the next run, meaning that only 1-20 squares were checked rather than all squares. </li></ul>I lacked the time to impliment these options, but that's no excuse, just the way it was. I had great fun and I'll be looking for the next challenge from the University of Waterloo CS Club.<br /><br />I'll throw my code up here for anyone that wants a slightly buggy (but very fixable) tron bot.<br /><br />In fact I have a few versions - one in perticular was stable but didn't search very deep.

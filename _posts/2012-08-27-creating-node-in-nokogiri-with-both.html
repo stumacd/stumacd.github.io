@@ -1,0 +1,11 @@
+---
+layout: post
+title: Creating a node in Nokogiri with both an attribute and content
+date: '2012-08-27T05:27:00.000-07:00'
+tags: 
+modified_time: '2015-02-25T05:33:49.634-08:00'
+blogger_id: tag:blogger.com,1999:blog-4711902727427506568.post-6051981355102402301
+blogger_orig_url: http://toastedtoothpaste.blogspot.com/2012/08/creating-node-in-nokogiri-with-both.html
+---
+
+Using Nokogiri's builder is a quick way to generate an HTML page when required.<br /><br />When creating a Node in ruby there can be a case where you<br /><br /><span style="font-family: Courier New, Courier, monospace;">doc.h4 "Some text"&nbsp;</span><br /><br />generates:<br /><br /><span style="font-family: Courier New, Courier, monospace;">&lt;h4&gt;"Some text"&lt;/h4&gt;</span><br /><br /><span style="font-family: Courier New, Courier, monospace;">doc.h4(:'text-align'=&gt;"right")</span><br /><br />(Note since text-align has a dash in the middle you will need to use quotes around the key name.)<br /><br />generates:<br /><br /><br /><span style="font-family: Courier New, Courier, monospace;">&lt;h4 text-align="right"/&gt;</span><br /><div><br /></div><br />So how would you generate:<br /><br /><span style="font-family: Courier New, Courier, monospace;">&lt;h4 text-align="right"&gt;"Some Text"&lt;/h4&gt;</span> &nbsp;???<br /><br /><span style="font-family: Courier New, Courier, monospace;">doc.h4(:'text-align'=&gt;"right") "Some Text"</span><br /><br />Results in:<br /><br /><br /><span style="font-family: Courier New, Courier, monospace;">./result2html.rb:73: syntax error, unexpected tSTRING_BEG, expecting '}'</span><br /><span style="font-family: Courier New, Courier, monospace;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; doc.h4(:'text-align'=&gt;"right") "Some Text"</span><br /><div><br /></div><br />Reading the <a href="http://nokogiri.org/Nokogiri/XML/Builder.html">documentation</a> turned up the answer:<br /><br /><span style="font-family: Courier New, Courier, monospace;">doc.h4(:'text-align'=&gt;"right") { doc.text "Some Text" }</span><br /><br /><br /><br />
