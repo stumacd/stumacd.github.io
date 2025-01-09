@@ -1,0 +1,11 @@
+---
+layout: post
+title: Fix unity after disabling in in Compiz
+date: '2011-11-26T22:21:00.000-08:00'
+tags: 
+modified_time: '2011-11-26T22:21:32.295-08:00'
+blogger_id: tag:blogger.com,1999:blog-4711902727427506568.post-3612545070490327349
+blogger_orig_url: http://toastedtoothpaste.blogspot.com/2011/11/fix-unity-after-disabling-in-in-compiz.html
+---
+
+I thought I'd disable Unity in Compiz after a fresh install of Ubuntu 11.10. Alas, it's so ingrained in the system that it totally borks the UI. To fix this I created a terminal launcher on the desktop (as Ctrl-Alt-T and Alt-F2 didn't work any more) that looked like this:<br /><br /><div style="font-family: &quot;Courier New&quot;,Courier,monospace;">#!/bin/sh&nbsp;&nbsp;&nbsp; <br />gnome-terminal</div><br />Then selected the file's properties and set the execute bit to true. Then ran the file. This left me with an open terminal in which I then typed:<br /><div style="font-family: &quot;Courier New&quot;,Courier,monospace;"><br /></div><div style="font-family: &quot;Courier New&quot;,Courier,monospace;">ccsm</div><br />This brought back unity and now the computer's back to a functional UI.<br /><br />Now all I need to do is work out how to disable that damn sidebar that gets in the way more than it help...

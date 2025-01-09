@@ -1,0 +1,14 @@
+---
+layout: post
+title: Google AI bot
+date: '2010-02-21T18:16:00.000-08:00'
+tags:
+- AI
+- bot
+- google
+modified_time: '2010-02-21T18:32:09.110-08:00'
+blogger_id: tag:blogger.com,1999:blog-4711902727427506568.post-8242137436392188420
+blogger_orig_url: http://toastedtoothpaste.blogspot.com/2010/02/google-ai-bot.html
+---
+
+Well I achieved my initial goal of getting into the top 10, only to be hoinked out to around 100 as the opposition got a lot stronger once the maps changed to avoid draws.<br /><br />The bots that seem to beat mine have great depth in their searches. I'm using minimax with alpha beta pruning which is probably what they're using so search depth isn't the issue. So I figure their evaluation functions are finding the better moves at the same depths. My rudimentary 'most available squares' approach needs an upgrade. Without adding too much time as the evaluation function is called quite frequently (around 10000 times per second).<br /><br />With the middle island forming a significant 'block' I need to get better at luring them my way, cutting their approach off then going around the other side and cutting at a point favourable to me. I'm going to try changing the evaluation function that evaluates which player is first to each square. This should give me a better sense of where a future border will be and hence try to maximize my player's area.<br /><br /><a href="http://csclub.uwaterloo.ca/contest/profile.php?user_id=1922">Link to my bot</a>

@@ -1,0 +1,13 @@
+---
+layout: post
+title: Codility
+date: '2010-07-16T10:24:00.000-07:00'
+tags:
+- quiz
+- code
+modified_time: '2010-07-17T08:51:30.812-07:00'
+blogger_id: tag:blogger.com,1999:blog-4711902727427506568.post-269176971184351953
+blogger_orig_url: http://toastedtoothpaste.blogspot.com/2010/07/codility.html
+---
+
+I was reading a blog concerning how to hire new programmers. According to this blog, one of the classic mistakes some recruiters make is that they don't get the propsective candidate to write any code during the interview. This seems a bit odd, but I guess in some small companies they may not have the competence to select their first programmer. This blog mentioned <a href="http://codility.com/">Codility</a>, a way to test a candidate's programming skills.<br /><br />I headed over and liked the design and thought I'd take the demo test. I recommend you give it a go and come back after that.<br /><br />It was a neat and easy to understand interface. I selected C as it's my weapon of choice for everything except for applications that need extensive string handling (in which case the String class makes bothering with Java worthwhile).<br /><br />They had a fair problem and a suboptimal solution as a framework. After coding my most intuitive solution (for those who tried the demo, getting the righthand side total then:<br /><pre class="csharpcode"><br /><span class="kwrd">for</span>(i=0;i&lt;n;i++){<br />  rsum -= arr[i];<br />  <span class="kwrd">if</span> (lsum == rsum) <span class="kwrd">return</span> i;<br />  lsum += arr[i]; }</pre><br /><br />To avoid arithmetic overflow, the array consists of doubles to be on the safe side. I overlooked this the first time in.<br /><br />Anyway, in the 30mins I got it except for the overflow, which I went back and checked that it worked. I wish there were a few more tests like this as work doesn't exercise all my c muscles :) Props to Codility hopefully a thing of the future.

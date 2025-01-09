@@ -1,0 +1,15 @@
+---
+layout: post
+title: Rails 2.3.5 App adding Bundler on Heroku
+date: '2011-01-02T16:49:00.000-08:00'
+tags:
+- bundler
+- ruby on rails
+- rails
+- heroku
+modified_time: '2011-01-02T22:52:09.942-08:00'
+blogger_id: tag:blogger.com,1999:blog-4711902727427506568.post-7263394109843861002
+blogger_orig_url: http://toastedtoothpaste.blogspot.com/2011/01/rails-235-app-adding-bundler-on-heroku.html
+---
+
+After staying up a little later than usual, I pushed the latest <a href="http://asxvaluescreener.heroku.com/records">ASX value screener</a> code to heroku - only for it to be rejected as now bundler was being used for everything. Bugger.<br /><br />If you are following the <a href="http://gembundler.com/rails23.html">instructions</a> on converting a 2.3.5 rails app to use bundler and you get an error like this:<br /><br />$ rake db:migrate --trace<br />(in ...)<br />** Invoke db:migrate (first_time)<br />** Invoke environment (first_time)<br />** Execute environment<br />rake aborted!<br />uninitialized constant Rails::Boot::Bundler<br />/usr/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:105:in `const_missing'<br /><br />You have probably misspelt preinitialize.rb in your config directory. Correct it and ensure that it is added into your git and you will get rid of this error. <br /><br />Uploading to heroku was where the next trap lay in wait:<br /><br />$ git push heroku master<br />Counting objects: 24, done.<br />Delta compression using up to 2 threads.<br />Compressing objects: 100% (17/17), done.<br />Writing objects: 100% (17/17), 5.86 KiB, done.<br />Total 17 (delta 12), reused 0 (delta 0)<br /><br />-----&gt; Heroku receiving push<br />-----&gt; Rails app detected<br />-----&gt; Gemfile detected, running Bundler version 0.9.9<br />-----&gt; Bundler works best on the Bamboo stack.&nbsp; Please migrate your app:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; http://docs.heroku.com/bamboo<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Unresolved dependencies detected; Installing...<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /usr/local/lib/ruby/1.8/yaml.rb:133:in `load': syntax error on line 2, col 8: `&nbsp; specs:' (ArgumentError)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;from /usr/local/lib/ruby/1.8/yaml.rb:133:in `load'<br /><br />To avoid this, switch to the bamboo stack as recommended and bundler will work as expected.<br /><br />Eventually, site back up - off to bed.
